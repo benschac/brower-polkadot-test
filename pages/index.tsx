@@ -1,9 +1,27 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import { u8aToHex } from "@polkadot/util";
+import { bip39Generate, bip39ToSeed, waitReady } from "@polkadot/wasm-crypto";
+import React from "react";
 
 const Home: NextPage = () => {
+  React.useEffect(() => {
+    (async () => {
+      await waitReady();
+      // generate phrase
+      const phrase = bip39Generate(12);
+
+      // get ed25519 seed from phrase
+      const seed = bip39ToSeed(phrase, "");
+
+      // display
+      console.log("phrase:", phrase);
+      console.log("seed:", u8aToHex(seed));
+    })();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +36,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
 
@@ -59,14 +77,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

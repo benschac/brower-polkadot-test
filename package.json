@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@polkadot/util": "^10.2.6",
+    "@polkadot/util-crypto": "^10.2.6",
+    "@polkadot/wasm-crypto": "^6.4.1",
     "next": "13.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
